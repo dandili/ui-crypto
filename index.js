@@ -1,53 +1,34 @@
-import Sidebar from './components/Sidebar'
-import CryptoList from "./components/CryptoList";
-import Card from "./components/Card";
-import React from "react";
-import Chart from "./components/Chart";
-import TradingViewWidget from 'react-tradingview-widget';
+import styles from "./Crypto.module.css"
+import Link from "next/link"
 
-export default function Home({filteredCrypto}) {
+// For displaying certain values form the JSON form @ CoinGeko
+const Crypto = ({name, id, image, key, marketcap, price, priceChange, symbol, volume}) => {
     return (
-    <div>
-      <div className="flex w-screen h-screen" >
-        <Sidebar/>
-        <div className="w-screen">
-            <div className="flex shadow-sm bg-gray-50  p-4 justify-between  ">
-                <div className="flex space-x-3  ">
-                    <p className="text-gray-400">Welcome</p>
-                    <p>Daniele!</p>
-                </div>
-            </div>
-            <div className=" bg-gradient-to-r from-gray-100 to-gray-50 h-full " >
-                <div className="flex   p-4 space-x-3">
-                    <Card></Card>
-                    <Card></Card>
-                    <Card></Card>
-                </div>
-                <div className="flex ml-3 mt-6">
-                    <Chart />
-
-                    <div className="bg-white  w-4/12 rounded-xl border border-gray-100 mr-4">
-                        <div className="border-b p-3 border-gray-100">
-                            <p className="font-semibold">Watchlist </p>
+        <Link href='/Crypto/[id]' as={`/Crypto/${id}`}>
+            <a>
+                <div className={styles.crypto_container}>
+                    <div className={styles.crypto_row}>
+                        <div className={styles.crypto}>
+                            <img src={image} alt={name} className={styles.crypto_img}/>
+                            <h1 className={styles.crypto_h1}>{name}</h1>
                         </div>
-                        <div className="flex flex-col items-center p-3 overflow-y-scroll">
-                            <CryptoList filteredCrypto={filteredCrypto}/>
+                        <div className={styles.crypto_info}>
+                            <p>£{price}</p>
+                            {priceChange < 0 ? (
+                                <p className={styles.crypto_red}>
+                                    {priceChange.toFixed(2)}%
+                                </p>
+                            ):(
+                                <p className={styles.crypto_green}>
+                                    {priceChange.toFixed(2)}%
+                                </p>
+                            )}
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-      </div>
-    </div>
-  )
+            </a>
+        </Link>
+    )
 }
 
-export const getServerSideProps = async () => {
-    const result = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=gbp&order=market_cap_desc&per_page=9&page=1&sparkline=false')
-    const filteredCrypto = await result.json()
-    return {
-        props: {
-            filteredCrypto
-        }
-    }
-}
+export default Crypto;
