@@ -1,3 +1,15 @@
+### About
+
+I developed a cryptocurrency web-based trading system to display data efficiently to a trader using component-based principles in React, JavaScript and various WebAPIs.
+
+Full report available upon request.
+
+![1620224429368](https://user-images.githubusercontent.com/20352798/162179095-966445ee-78a4-4548-98e6-e369fdb337d0.jpg)
+
+
+
+### Deploy
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
